@@ -9,6 +9,13 @@ The error will be shown if the email is not in it's valid form i.e abcdxyz123@ab
 
 No error is shown for correct format
 
+<img width="275" alt="Screenshot 2024-02-21 203324" src="https://github.com/SameenRajpoot/forms-validation/assets/151715597/b88b41cd-13b7-4e62-8a98-6fa028535fe4">
+
+
+Similarly it shows errors when DOB isn't and phone number isn't added and such other fields.
+e.g
+
+
 
 
 
