@@ -93,7 +93,7 @@
             </div>
             <div class="form-field">
                 <label for="phone">Phone Number:</label>
-                <input type="tel" id="phone" name="phone" pattern="^\+?\d{0,13}" required>
+                <input type="tel" id="phone" name="phone" pattern="^\d{11}$" required>
                 <div class="error" id="phoneError"></div>
             </div>
             <div class="form-field">
@@ -177,8 +177,8 @@
                 isValid = false;
             }
 
-            if (!phone.match(/^\+?\d{0,13}$/)) {
-                document.getElementById('phoneError').textContent = 'Invalid phone number.';
+            if (!phone.match(/^\d{11}$/)) {
+                document.getElementById('phoneError').textContent = 'Invalid phone number. Must be exactly 11 digits.';
                 isValid = false;
             }
 
