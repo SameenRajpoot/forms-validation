@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignIn and SignUp Forms with Validation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .form-container {
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+            padding: 20px;
+            margin: 20px auto;
+        }
+        .form-field {
+            margin-bottom: 15px;
+        }
+        .form-field label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-field input, .form-field select, .form-field textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-field input:focus, .form-field select:focus, .form-field textarea:focus {
+            border-color: #0056b3;
+            outline: none;
+        }
+        .error {
+            color: red;
+            font-size: 0.8rem;
+            height: 1.2rem;
+        }
+        button {
+            background-color: #0056b3;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #004494;
+        }
+        .terms {
+            display: flex;
+            align-items: center;
+        }
+        .terms input {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>SignIn Form</h2>
+        <form id="signInForm" novalidate>
+            <div class="form-field">
+                <label for="signInEmail">Email:</label>
+                <input type="email" id="signInEmail" name="email" required>
+                <div class="error" id="signInEmailError"></div>
+            </div>
+            <div class="form-field">
+                <label for="signInPassword">Password:</label>
+                <input type="password" id="signInPassword" name="password" required>
+                <div class="error" id="signInPasswordError"></div>
+            </div>
+            <button type="button" onclick="validateSignIn()">Sign In</button>
+        </form>
+    </div>
+
+    <div class="form-container">
+        <h2>SignUp Form</h2>
+        <form id="signUpForm" novalidate>
+            <div class="form-field">
+                <label for="fullName">Full Name:</label>
+                <input type="text" id="fullName" name="fullName" required>
+                <div class="error" id="fullNameError"></div>
+            </div>
+            <div class="form-field">
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" pattern="^\+?\d{0,13}" required>
+                <div class="error" id="phoneError"></div>
+            </div>
+            <div class="form-field">
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" required>
+                <div class="error" id="dobError"></div>
+            </div>
+            <div class="form-field">
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+                <div class="error" id="genderError"></div>
+            </div>
+            <div class="form-field">
+                <label for="signUpEmail">Email:</label>
+                <input type="email" id="signUpEmail" name="email" required>
+                <div class="error" id="signUpEmailError"></div>
+            </div>
+            <div class="form-field">
+                <label for="signUpPassword">Password:</label>
+                <input type="password" id="signUpPassword" name="password" required minlength="8">
+                <div class="error" id="signUpPasswordError"></div>
+            </div>
+            <div class="form-field">
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+                <div class="error" id="confirmPasswordError"></div>
+            </div>
+            <div class="form-field terms">
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms">I agree to the terms and conditions</label>
+                <div class="error" id="termsError"></div>
+            </div>
+            <button type="button" onclick="validateSignUp()">Sign Up</button>
+        </form>
+    </div>
+
+    <script>
+        function validateSignIn() {
+            let isValid = true;
+            document.getElementById('signInEmailError').textContent = '';
+            document.getElementById('signInPasswordError').textContent = '';
+
+            const signInEmail = document.getElementById('signInEmail').value;
+            const signInPassword = document.getElementById('signInPassword').value;
+
+            if (!signInEmail.match(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/)) {
+                document.getElementById('signInEmailError').textContent = 'Please enter a valid email address.';
+                isValid = false;
+            }
+
+            if (signInPassword.length < 8) {
+                document.getElementById('signInPasswordError').textContent = 'Password must be at least 8 characters long.';
+                isValid = false;
+            }
+
+            if (!isValid) {
+                console.log('SignIn form is not valid');
+            }
+        }
+
+        function validateSignUp() {
+            let isValid = true;
+            document.querySelectorAll('.error').forEach(el => el.textContent = '');
+
+            const fullName = document.getElementById('fullName').value.trim();
+            const phone = document.getElementById('phone').value;
+            const dob = document.getElementById('dob').value;
+            const gender = document.getElementById('gender').value;
+            const email = document.getElementById('signUpEmail').value;
+            const password = document.getElementById('signUpPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const terms = document.getElementById('terms').checked;
+
+            if (!fullName) {
+                document.getElementById('fullNameError').textContent = 'Full name is required.';
+                isValid = false;
+            }
+
+            if (!phone.match(/^\+?\d{0,13}$/)) {
+                document.getElementById('phoneError').textContent = 'Invalid phone number.';
+                isValid = false;
+            }
+
+            if (!dob) {
+                document.getElementById('dobError').textContent = 'Date of birth is required.';
+                isValid = false;
+            } else {
+                const dobDate = new Date(dob);
+                const now = new Date();
+                if (dobDate >= now) {
+                    document.getElementById('dobError').textContent = 'Date of birth must be in the past.';
+                    isValid = false;
+                }
+            }
+
+            if (!gender) {
+                document.getElementById('genderError').textContent = 'Gender selection is required.';
+                isValid = false;
+            }
+
+            if (!email.match(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/)) {
+                document.getElementById('signUpEmailError').textContent = 'Invalid email format.';
+                isValid = false;
+            }
+
+            if (password.length < 8) {
+                document.getElementById('signUpPasswordError').textContent = 'Password must be at least 8 characters long.';
+                isValid = false;
+            }
+
+            if (password !== confirmPassword) {
+                document.getElementById('confirmPasswordError').textContent = 'Passwords do not match.';
+                isValid = false;
+            }
+
+            if (!terms) {
+                document.getElementById('termsError').textContent = 'You must agree to the terms and conditions.';
+                isValid = false;
+            }
+
+            if (!isValid) {
+                console.log('SignUp form is not valid');
+            }
+        }
+    </script>
+</body>
+</html>
