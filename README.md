@@ -13,6 +13,13 @@ No error is shown for correct format
 
 
 Similarly it shows errors when DOB isn't and phone number isn't added and such other fields.
+
+<img width="293" alt="Screenshot 2024-02-21 203756" src="https://github.com/SameenRajpoot/forms-validation/assets/151715597/d9ac6870-d00b-48e0-90ce-dcd523c9db81">
+
+
+
+<img width="287" alt="Screenshot 2024-02-21 203905" src="https://github.com/SameenRajpoot/forms-validation/assets/151715597/4732f62f-b644-4ef6-ac73-6f27d1378ee3">
+
 e.g
 
 
